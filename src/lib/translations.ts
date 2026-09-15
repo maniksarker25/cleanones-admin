@@ -1453,10 +1453,20 @@ export type UiDict = {
   roomNotFound: string;
   locationNotFound: string;
   workingHours: string;
+  attentionRequired: string;
+  workerNeedsAttention: string;
+  workersNeedAttention: string;
+  lateWorkerSubtitle: string;
+  lateWorkersSubtitle: string;
 };
 
 export const uiTranslations: Record<string, UiDict> = {
   en: {
+    attentionRequired: "Attention required",
+    workerNeedsAttention: "worker needs attention",
+    workersNeedAttention: "workers need attention",
+    lateWorkerSubtitle: "worker is late or has not checked in. Contact them or arrange a replacement.",
+    lateWorkersSubtitle: "workers are late or have not checked in. Contact them or arrange a replacement.",
     workingHours: "Working Hours",
     cleaningPlansTitle: "Cleaning Plans",
     cleaningPlansSubtitle: "Scheduled cleaning plans across every client location.",
@@ -1744,6 +1754,11 @@ export const uiTranslations: Record<string, UiDict> = {
     noDataFound: "No data found",
   },
   nl: {
+    attentionRequired: "Aandacht vereist",
+    workerNeedsAttention: "medewerker heeft aandacht nodig",
+    workersNeedAttention: "medewerkers hebben aandacht nodig",
+    lateWorkerSubtitle: "medewerker is te laat of heeft niet ingecheckt. Neem contact op of regel vervanging.",
+    lateWorkersSubtitle: "medewerkers zijn te laat of hebben niet ingecheckt. Neem contact op of regel vervanging.",
     workingHours: "Werkuren",
     cleaningPlansTitle: "Schoonmaakplannen",
     cleaningPlansSubtitle: "Geplande schoonmaakplannen voor elke klantlocatie.",
@@ -2031,6 +2046,11 @@ export const uiTranslations: Record<string, UiDict> = {
     noDataFound: "Geen gegevens gevonden",
   },
   pl: {
+    attentionRequired: "Wymagana uwaga",
+    workerNeedsAttention: "pracownik wymaga uwagi",
+    workersNeedAttention: "pracowników wymaga uwagi",
+    lateWorkerSubtitle: "pracownik spóźnia się lub nie zameldował się. Skontaktuj się lub zorganizuj zastępstwo.",
+    lateWorkersSubtitle: "pracowników spóźnia się lub nie zameldowało się. Skontaktuj się lub zorganizuj zastępstwo.",
     workingHours: "Godziny pracy",
     cleaningPlansTitle: "Plany sprzątania",
     cleaningPlansSubtitle: "Zaplanowane plany sprzątania dla każdej lokalizacji klienta.",
@@ -2318,6 +2338,11 @@ export const uiTranslations: Record<string, UiDict> = {
     noDataFound: "Nie znaleziono danych",
   },
   uk: {
+    attentionRequired: "Потрібна увага",
+    workerNeedsAttention: "працівник потребує уваги",
+    workersNeedAttention: "працівників потребують уваги",
+    lateWorkerSubtitle: "працівник запізнюється або не відмітився. Зв’яжіться або знайдіть заміну.",
+    lateWorkersSubtitle: "працівників запізнюються або не відмітилися. Зв’яжіться або знайдіть заміну.",
     workingHours: "Робочі години",
     cleaningPlansTitle: "Плани прибирання",
     cleaningPlansSubtitle: "Заплановані плани прибирання для кожної локації клієнта.",
@@ -2605,6 +2630,11 @@ export const uiTranslations: Record<string, UiDict> = {
     noDataFound: "Даних не знайдено",
   },
   pt: {
+    attentionRequired: "Atenção necessária",
+    workerNeedsAttention: "trabalhador precisa de atenção",
+    workersNeedAttention: "trabalhadores precisam de atenção",
+    lateWorkerSubtitle: "trabalhador está atrasado ou não fez check-in. Contacte-o ou trate da substituição.",
+    lateWorkersSubtitle: "trabalhadores estão atrasados ou não fizeram check-in. Contacte-os ou trate da substituição.",
     workingHours: "Horas de trabalho",
     cleaningPlansTitle: "Planos de limpeza",
     cleaningPlansSubtitle: "Planos de limpeza agendados em todas as localizações de clientes.",
@@ -2892,6 +2922,11 @@ export const uiTranslations: Record<string, UiDict> = {
     noDataFound: "Nenhum dado encontrado",
   },
   ar: {
+    attentionRequired: "يتطلب انتباهًا",
+    workerNeedsAttention: "عامل يحتاج إلى انتباه",
+    workersNeedAttention: "عمال يحتاجون إلى انتباه",
+    lateWorkerSubtitle: "عامل متأخر أو لم يسجل حضوره. تواصل معه أو دبّر بديلاً.",
+    lateWorkersSubtitle: "عمال متأخرون أو لم يسجلوا حضورهم. تواصل معهم أو دبّر بدائل.",
     workingHours: "ساعات العمل",
     cleaningPlansTitle: "خطط التنظيف",
     cleaningPlansSubtitle: "خطط التنظيف المجدولة عبر جميع مواقع العملاء.",
@@ -3179,6 +3214,11 @@ export const uiTranslations: Record<string, UiDict> = {
     noDataFound: "لا توجد بيانات",
   },
   fr: {
+    attentionRequired: "Attention requise",
+    workerNeedsAttention: "employé demande votre attention",
+    workersNeedAttention: "employés demandent votre attention",
+    lateWorkerSubtitle: "employé est en retard ou n'a pas pointé. Contactez-le ou prévoyez un remplacement.",
+    lateWorkersSubtitle: "employés sont en retard ou n'ont pas pointé. Contactez-les ou prévoyez un remplacement.",
     workingHours: "Heures de travail",
     cleaningPlansTitle: "Plans de nettoyage",
     cleaningPlansSubtitle: "Plans de nettoyage planifiés sur tous les sites clients.",
@@ -3466,6 +3506,11 @@ export const uiTranslations: Record<string, UiDict> = {
     noDataFound: "Aucune donnée trouvée",
   },
   es: {
+    attentionRequired: "Atención requerida",
+    workerNeedsAttention: "trabajador necesita atención",
+    workersNeedAttention: "trabajadores necesitan atención",
+    lateWorkerSubtitle: "trabajador llega tarde o no ha fichado. Contáctelo o gestione un reemplazo.",
+    lateWorkersSubtitle: "trabajadores llegan tarde o no han fichado. Contáctelos o gestione un reemplazo.",
     workingHours: "Horas de trabajo",
     cleaningPlansTitle: "Planes de limpieza",
     cleaningPlansSubtitle: "Planes de limpieza programados en todas las ubicaciones de clientes.",
