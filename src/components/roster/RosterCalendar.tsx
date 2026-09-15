@@ -248,7 +248,7 @@ export function RosterCalendar() {
         </div>
       </div>
 
-      <div className="min-h-[600px] flex-1">
+      <div className="flex min-h-0 flex-1 flex-col">
         {displayError && <p className="mb-3 rounded border border-red-200 bg-red-50 p-3 text-xs text-red-700">{displayError}</p>}
         {loading ? <ContentSkeleton /> : <>
           {view === 'Day' && <DayView currentDate={currentDate} shifts={shifts} teamMembers={teamMembers} onShiftClick={setSelectedShift} />}
@@ -257,7 +257,7 @@ export function RosterCalendar() {
         </>}
       </div>
 
-      <div className="mt-4">
+      <div className="shrink-0 pt-3">
         <BackendPagination
           page={page}
           limit={20}

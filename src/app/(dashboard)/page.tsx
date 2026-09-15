@@ -112,6 +112,9 @@ export default function DashboardPage() {
   };
 
   const attentionPills = uniqueBy(safeOverview.attention_banner.call_pills, (item) => item.worker_id);
+  // `badge_text` and `banner_subtitle` are deliberately unused: the overview builds them from
+  // its own `people_need_attention_count`, which can be 0 while the live meta reports a late
+  // worker — that mismatch is what printed "All on time" above a late worker.
   const liveGroups = uniqueBy(safeOverview.live_operations_by_client, (group) => `${group.client_id}-${group.location_id}`).map((group) => ({
     ...group,
     workers: uniqueBy(group.workers, (worker) => worker.worker_id),
@@ -273,14 +276,16 @@ export default function DashboardPage() {
           <div className="flex-1 min-w-48">
             <div className="flex flex-wrap items-center gap-2">
               <h2 className={`font-bold ${needAttentionCount > 0 ? "text-red-950" : "text-slate-900"}`}>
-                {needAttentionCount} {t.dashboard.peopleNeedAttention}
+                {needAttentionCount} {needAttentionCount === 1 ? ui.workerNeedsAttention : ui.workersNeedAttention}
               </h2>
               <span className={`rounded-full px-2.5 py-0.5 text-[11px] font-bold ${needAttentionCount > 0 ? "bg-red-100 text-red-700" : "bg-emerald-100 text-emerald-700"}`}>
-                {needAttentionCount > 0 ? safeOverview.attention_banner.badge_text : t.dashboard.allOnTime}
+                {needAttentionCount > 0 ? ui.attentionRequired : t.dashboard.allOnTime}
               </span>
             </div>
             <p className={`text-xs sm:text-sm mt-0.5 ${needAttentionCount > 0 ? "text-red-700" : "text-slate-500"}`}>
-              {needAttentionCount > 0 ? safeOverview.attention_banner.banner_subtitle : t.dashboard.noWorkersRequireAttention}
+              {needAttentionCount > 0
+                ? `${needAttentionCount} ${needAttentionCount === 1 ? ui.lateWorkerSubtitle : ui.lateWorkersSubtitle}`
+                : t.dashboard.noWorkersRequireAttention}
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
