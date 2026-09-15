@@ -30,14 +30,14 @@ export function DayView({ currentDate, shifts, teamMembers, onShiftClick }: DayV
   const currentLine = ((nowMinutes - START_HOUR * 60) / 60) * HOUR_WIDTH;
   const showCurrentLine = isToday && currentLine >= 0 && currentLine <= (END_HOUR - START_HOUR) * HOUR_WIDTH;
 
-  return <section className="overflow-hidden rounded border border-slate-200 bg-white">
-    <div className="flex min-h-16 items-center justify-between border-b border-sky-600 bg-primary px-5 text-white">
+  return <section className="flex h-full min-h-0 flex-col overflow-hidden rounded border border-slate-200 bg-white">
+    <div className="flex min-h-16 shrink-0 items-center justify-between border-b border-sky-600 bg-primary px-5 text-white">
       <div><p className="text-[10px] font-semibold uppercase tracking-[.18em] text-white/75">Daily roster</p><h2 className="mt-0.5 text-xl font-semibold tracking-tight">{currentDate.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}</h2></div>
       <div className="hidden items-center gap-4 text-[10px] text-white/75 sm:flex"><span><b className="text-sm text-white">{dayShifts.length}</b> shifts</span><span className="h-6 w-px bg-white/25" /><span><b className="text-sm text-white">{dayShifts.reduce((total, shift) => total + durationHours(shift), 0).toFixed(1)}h</b> scheduled</span></div>
     </div>
 
-    <div className="overflow-x-auto">
-      <div className="relative" style={{ minWidth: EMPLOYEE_WIDTH + (END_HOUR - START_HOUR) * HOUR_WIDTH }}>
+    <div className="min-h-0 flex-1 overflow-auto">
+      <div className="relative flex min-h-full flex-col" style={{ minWidth: EMPLOYEE_WIDTH + (END_HOUR - START_HOUR) * HOUR_WIDTH }}>
         <div className="sticky top-0 z-30 flex h-12 border-b border-slate-200 bg-white">
           <div className="sticky left-0 z-40 flex shrink-0 items-center border-r border-slate-200 bg-white px-4 text-[10px] font-semibold uppercase tracking-wider text-slate-400" style={{ width: EMPLOYEE_WIDTH }}>Team member</div>
           <div className="relative" style={{ width: (END_HOUR - START_HOUR) * HOUR_WIDTH }}>
@@ -45,7 +45,7 @@ export function DayView({ currentDate, shifts, teamMembers, onShiftClick }: DayV
           </div>
         </div>
 
-        <div className="relative">
+        <div className="relative flex min-h-0 flex-1 flex-col">
           {rows.map((employee, rowIndex) => {
             const employeeShifts = dayShifts.filter((shift) => shift.workerName === employee);
             return <div key={employee} className={`flex h-[74px] border-b border-slate-100 last:border-b-0 ${rowIndex % 2 ? "bg-slate-50/45" : "bg-white"}`}>
@@ -77,11 +77,20 @@ export function DayView({ currentDate, shifts, teamMembers, onShiftClick }: DayV
               </div>
             </div>;
           })}
+          {/* The hour grid carries on past the last team member, so the unused part of the day
+              still reads as a calendar rather than a blank panel. */}
+          <div className="flex min-h-0 flex-1" aria-hidden>
+            <div className="sticky left-0 z-20 shrink-0 border-r border-slate-200 bg-white" style={{ width: EMPLOYEE_WIDTH }} />
+            <div className="relative bg-white" style={{ width: (END_HOUR - START_HOUR) * HOUR_WIDTH }}>
+              {hours.slice(0, -1).map((hour, index) => <span key={hour} className="absolute inset-y-0 border-r border-slate-200/80" style={{ left: (index + 1) * HOUR_WIDTH }} />)}
+              {hours.slice(0, -1).map((hour, index) => <span key={`${hour}-half`} className="absolute inset-y-0 border-r border-dashed border-slate-100" style={{ left: index * HOUR_WIDTH + HOUR_WIDTH / 2 }} />)}
+            </div>
+          </div>
           {showCurrentLine && <div className="pointer-events-none absolute bottom-0 top-0 z-20 w-0.5 bg-red-500" style={{ left: EMPLOYEE_WIDTH + currentLine }}><span className="absolute -left-[5px] -top-1 h-3 w-3 rounded-full border-2 border-white bg-red-500" /></div>}
         </div>
       </div>
     </div>
-    <div className="flex flex-wrap items-center gap-4 border-t border-slate-200 bg-slate-50 px-4 py-2 text-[10px] text-slate-500"><span className="flex items-center gap-1.5"><i className="h-2 w-2 rounded-full bg-sky-500" /> Scheduled shift</span>{isToday && <span className="flex items-center gap-1.5"><i className="h-3 w-0.5 bg-red-500" /> Current time</span>}<span className="ml-auto hidden text-slate-400 sm:block">Scroll horizontally to view the full working day</span></div>
+    <div className="flex shrink-0 flex-wrap items-center gap-4 border-t border-slate-200 bg-slate-50 px-4 py-2 text-[10px] text-slate-500"><span className="flex items-center gap-1.5"><i className="h-2 w-2 rounded-full bg-sky-500" /> Scheduled shift</span>{isToday && <span className="flex items-center gap-1.5"><i className="h-3 w-0.5 bg-red-500" /> Current time</span>}<span className="ml-auto hidden text-slate-400 sm:block">Scroll horizontally to view the full working day</span></div>
   </section>;
 }
 
